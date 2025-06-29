@@ -10,6 +10,16 @@
 ### Notes
 - calling the endpoint data in the tests is not ideal, should probably provide a mock for this
 
+
+### Testing 
+The API has been deployed to AWS and can be tested using the following command:
+
+Get Deals by Time of Day
+```bash
+curl 'https://fvt3a61408.execute-api.ap-southeast-2.amazonaws.com/dev/eatclub/deals?timeOfDay=18%3A00'
 ```
-AWS access portal URL: https://d-9767a376df.awsapps.com/start, Username: eatclub, One-time password: j?FRIj!xbfe&wLG)??nBAyj0b@)hNR.E3bO--7e^m2-B6?XN1
+
+Get peak time period
+```bash
+curl https://fvt3a61408.execute-api.ap-southeast-2.amazonaws.com/dev/eatclub/deals/peaktime
 ```
