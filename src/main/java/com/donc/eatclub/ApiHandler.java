@@ -45,12 +45,11 @@ public class ApiHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
     context.getLogger().log("Received request with param timeOfDay=: " + params.get("timeOfDay"));
 
     RestaurantData data = GetData();
-    List<RestaurantDeal> activeDeals = FindActiveDeals(params.get("timeOfDay"), data);
 
     Gson gson = new Gson();
     APIGatewayV2HTTPResponse resp = new APIGatewayV2HTTPResponse();
     resp.setStatusCode(200);
-    resp.setBody(gson.toJson(activeDeals));
+    resp.setBody(gson.toJson(new DealResponse(FindActiveDeals(params.get("timeOfDay"), data))));
 
     return resp;
   }
@@ -106,7 +105,7 @@ public class ApiHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
     return time.isAfter(startTime) && time.isBefore(endTime);
   }
 
-  record DealOutput(
+  record DealResponse(
       List<RestaurantDeal> deals
   ) {
 

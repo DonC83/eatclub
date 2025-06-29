@@ -1,0 +1,4 @@
+{
+  "statusCode": 200,
+  "body": "{\"deals\":[{\"restaurantObjectId\":\"B5713CD0-91BF-40C7-AFC3-7D46D26B00BF\",\"restaurantName\":\"Kekou\",\"restaurantAddress1\":\"396 Bridge Road\",\"restarantSuburb\":\"Richmond\",\"restaurantOpen\":\"1:00pm\",\"restaurantClose\":\"11:00pm\",\"dealObjectId\":\"B5713CD0-0000-40C7-AFC3-7D46D26B00BF\",\"discount\":\"10\",\"dineIn\":\"true\",\"lightning\":\"true\",\"qtyLeft\":\"3\"}]}"
+}
