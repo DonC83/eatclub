@@ -1,4 +1,4 @@
-package com.donc.eatclub;
+package com.donc.eatclub.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ApiHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
+public class ActiveDealHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGatewayV2HTTPResponse> {
 
   private static final DateTimeFormatter DTF_24HOUR = DateTimeFormatter.ofPattern("HH:mm");
   private static final DateTimeFormatter DTF_AMPM;
@@ -106,15 +106,13 @@ public class ApiHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 
   record DealResponse(
       List<RestaurantDeal> deals
-  ) {
-
-  }
+  ) { }
 
   record RestaurantDeal(
       String restaurantObjectId,
       String restaurantName,
       String restaurantAddress1,
-      String restarantSuburb,
+      String restaurantSuburb,
       String restaurantOpen,
       String restaurantClose,
       String dealObjectId,
@@ -122,8 +120,6 @@ public class ApiHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
       String dineIn,
       String lightning,
       String qtyLeft
-  ) {
-
-  }
+  ) { }
 
 }

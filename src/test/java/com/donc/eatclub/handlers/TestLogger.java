@@ -1,4 +1,4 @@
-package com.donc.eatclub;
+package com.donc.eatclub.handlers;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.logging.LogLevel;
