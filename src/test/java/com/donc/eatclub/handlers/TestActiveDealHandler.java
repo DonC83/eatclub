@@ -10,7 +10,7 @@ import com.amazonaws.services.lambda.runtime.tests.annotations.HandlerParams;
 import com.amazonaws.services.lambda.runtime.tests.annotations.Responses;
 import org.junit.jupiter.params.ParameterizedTest;
 
-public class TestApiHandler {
+public class TestActiveDealHandler {
 
   @ParameterizedTest
   @HandlerParams(
@@ -18,7 +18,7 @@ public class TestApiHandler {
       responses = @Responses(folder = "responses/", type = APIGatewayV2HTTPResponse.class)
 
   )
-  void testSuccessfulResponse(APIGatewayV2HTTPEvent event, APIGatewayV2HTTPResponse expected) {
+  void testApiGatewayEvents(APIGatewayV2HTTPEvent event, APIGatewayV2HTTPResponse expected) {
     Context context = new TestContext();
     ActiveDealHandler handler = new ActiveDealHandler();
 
@@ -27,6 +27,5 @@ public class TestApiHandler {
     assertEquals(expected.getBody(), response.getBody());
     assertEquals(expected.getStatusCode(), response.getStatusCode());
   }
-
 
 }

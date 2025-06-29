@@ -1,0 +1,3 @@
+
+# Get deals for a specific time of day
+GET https://fvt3a61408.execute-api.ap-southeast-2.amazonaws.com/dev/eatclub/deals?timeOfDay=18%3A00
