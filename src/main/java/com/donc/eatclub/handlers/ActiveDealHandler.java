@@ -4,18 +4,12 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
+import com.donc.eatclub.integration.DataFetcher;
 import com.donc.eatclub.model.RestaurantData;
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +37,7 @@ public class ActiveDealHandler implements RequestHandler<APIGatewayV2HTTPEvent, 
     }
     context.getLogger().log("Received request with param timeOfDay=: " + params.get("timeOfDay"));
 
-    RestaurantData data = GetData();
+    RestaurantData data = new DataFetcher().GetData();
 
     Gson gson = new Gson();
     APIGatewayV2HTTPResponse resp = new APIGatewayV2HTTPResponse();
@@ -53,32 +47,19 @@ public class ActiveDealHandler implements RequestHandler<APIGatewayV2HTTPEvent, 
     return resp;
   }
 
-  private RestaurantData GetData() {
-    try (HttpClient c = HttpClient.newHttpClient()) {
-      HttpRequest req = HttpRequest.newBuilder()
-          .uri(URI.create("https://eccdn.com.au/misc/challengedata.json"))
-          .GET().build();
-      HttpResponse<String> resp = c.send(req, BodyHandlers.ofString());
-      Gson gson = new Gson();
-      return gson.fromJson(resp.body(), RestaurantData.class);
-    } catch (IOException | InterruptedException e) {
-      throw new RuntimeException("Failed to fetch restaurant data", e);
-    }
-  }
-
   private List<RestaurantDeal> FindActiveDeals(String timeOfDay, RestaurantData rd) {
-    List<RestaurantDeal> matchingDeals = new ArrayList<>();
-    for (var r : rd.restaurants()) {
-      if (r.deals() != null) {
-        for (var d : r.deals()) {
-          boolean isActive = false;
-          if (d.start() != null && d.end() != null) {
-            isActive = IsDealActive(timeOfDay, d.start(), d.end());
-          } else if (d.open() != null && d.close() != null) {
-            isActive = IsDealActive(timeOfDay, d.open(), d.close());
-          }
-          if (isActive) {
-            matchingDeals.add(new RestaurantDeal(
+    return rd.restaurants().stream()
+        .filter(r -> r.deals() != null)
+        .flatMap(r -> r.deals().stream()
+            .filter(d -> {
+                if (d.start() != null && d.end() != null) {
+                    return IsDealActive(timeOfDay, d.start(), d.end());
+                } else if (d.open() != null && d.close() != null) {
+                    return IsDealActive(timeOfDay, d.open(), d.close());
+                }
+                return false;
+            })
+            .map(d -> new RestaurantDeal(
                 r.objectId(),
                 r.name(),
                 r.address1(),
@@ -89,12 +70,10 @@ public class ActiveDealHandler implements RequestHandler<APIGatewayV2HTTPEvent, 
                 d.discount(),
                 d.dineIn(),
                 d.lightning(),
-                d.qtyLeft()));
-          }
-        }
-      }
-    }
-    return matchingDeals;
+                d.qtyLeft()
+            ))
+        )
+        .toList();
   }
 
   private boolean IsDealActive(String timeString, String startTimeString, String endTimeString) {

@@ -1,0 +1,43 @@
+{
+  "deals": [
+    {
+      "restaurantObjectId": "D80263E8-FD89-2C70-FF6B-D854ADB8DB00",
+      "restaurantName": "ABC Chicken",
+      "restaurantAddress1": "361 Queen Street",
+      "restaurantSuburb": "Melbourne",
+      "restaurantOpen": "12:00pm",
+      "restaurantClose": "11:00pm",
+      "dealObjectId": "D80263E8-0000-2C70-FF6B-D854ADB8DB00",
+      "discount": "30",
+      "dineIn": "false",
+      "lightning": "false",
+      "qtyLeft": "1"
+    },
+    {
+      "restaurantObjectId": "D80263E8-FD89-2C70-FF6B-D854ADB8DB00",
+      "restaurantName": "ABC Chicken",
+      "restaurantAddress1": "361 Queen Street",
+      "restaurantSuburb": "Melbourne",
+      "restaurantOpen": "12:00pm",
+      "restaurantClose": "11:00pm",
+      "dealObjectId": "D80263E8-1111-2C70-FF6B-D854ADB8DB00",
+      "discount": "20",
+      "dineIn": "true",
+      "lightning": "false",
+      "qtyLeft": "4"
+    },
+    {
+      "restaurantObjectId": "B5713CD0-91BF-40C7-AFC3-7D46D26B00BF",
+      "restaurantName": "Kekou",
+      "restaurantAddress1": "396 Bridge Road",
+      "restaurantSuburb": "Richmond",
+      "restaurantOpen": "1:00pm",
+      "restaurantClose": "11:00pm",
+      "dealObjectId": "B5713CD0-0000-40C7-AFC3-7D46D26B00BF",
+      "discount": "10",
+      "dineIn": "true",
+      "lightning": "true",
+      "qtyLeft": "3"
+    }
+  ]
+}
