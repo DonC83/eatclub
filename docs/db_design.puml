@@ -1,0 +1,46 @@
+@startuml
+!theme cerulean-outline
+skinparam BackgroundColor #ffffff
+
+title Data Design
+
+entity Restaurant {
+    objectId: int [pk, increment]
+    --
+    name: varchar [not null, unique]
+    address1 : varchar [not null]
+    suburb: varchar [not null]
+    imageLink: varchar
+    open: varchar [not null]
+    close: varchar [not null]
+}
+
+entity RestaurantCuisine {
+    restaurantId: int [fk ref: > Restaurant.objectId],
+    cuisineId: int [fk ref: > Cuisine.id]
+}
+
+entity Cuisine {
+    id: int [pk, increment]
+    --
+    name: varchar(255) [not null, unique]
+}
+
+entity Deal {
+    id: int [pk, increment]
+    --
+    restaurantId: int [fk ref: > Restaurant.objectId]
+    discount int [not null]
+    dineIn boolean
+    lightning boolean
+    open varchar
+    close varchar
+    start varchar
+    end varchar
+    qtyLeft int
+}
+
+Restaurant --> Deal : 1..*
+Restaurant --> RestaurantCuisine : 1..*
+RestaurantCuisine <-- Cuisine : 1..*
+@enduml
