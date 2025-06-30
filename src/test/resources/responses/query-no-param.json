@@ -1,0 +1,4 @@
+{
+  "statusCode": 400,
+  "body" : "Missing 'timeOfDay' query parameter"
+}
